@@ -8,16 +8,8 @@
 import Foundation
 
 struct CurrentWeatherResponse: Codable {
-    let weather: [Weather]
-    let main: Main
-    let visibility: Int
-    let wind: Wind
-    let name: String
-    let timestamp: Int
-    let sys: Sys
+    let location: WeatherLocation
+    let current: CurrentWeather
+    let forecast: Forecast
     
-    enum CodingKeys: String, CodingKey {
-        case weather, main, visibility, wind, name, sys
-        case timestamp = "dt"
-    }
 }
