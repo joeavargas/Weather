@@ -10,6 +10,6 @@ import Foundation
 struct CurrentWeatherResponse: Codable {
     let location: WeatherLocation
     let current: CurrentWeather
-//    let forecast: Forecast
+    let forecast: Forecast
     
 }
