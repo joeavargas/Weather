@@ -21,6 +21,7 @@
 		E3B6A6EA2C664CD1003A856C /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6A6E92C664CD1003A856C /* Day.swift */; };
 		E3FBEEB12C6762150063881C /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FBEEB02C6762150063881C /* Forecast.swift */; };
 		E3FBEEB32C6768120063881C /* ForecastDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FBEEB22C6768120063881C /* ForecastDay.swift */; };
+		E3FBEEB52C67CA430063881C /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FBEEB42C67CA430063881C /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		E3B6A6E92C664CD1003A856C /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		E3FBEEB02C6762150063881C /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		E3FBEEB22C6768120063881C /* ForecastDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDay.swift; sourceTree = "<group>"; };
+		E3FBEEB42C67CA430063881C /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		E30333D92C5DC3E9008C6502 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				E3FBEEB42C67CA430063881C /* Network.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FBEEB52C67CA430063881C /* Network.swift in Sources */,
 				E3B6A6E62C664A18003A856C /* Hour.swift in Sources */,
 				E39BE70D2C667A14000E71D4 /* AirQuality.swift in Sources */,
 				E3FBEEB12C6762150063881C /* Forecast.swift in Sources */,
