@@ -12,9 +12,9 @@ class Network {
     private let shared = URLSession.shared
     
     func fetch<T: Decodable>(lat: Double, lon: Double, type: T.Type) async throws -> T {
-        var urlComponents = URLComponents(string: "http://api.weatherapi.com/v1/forecast.json")!
+        var urlComponents = URLComponents(string: "https://api.weatherapi.com/v1/forecast.json")!
         let coordinates = "\(lat)" + "," + "\(lon)"
-        let queryItems = [
+        urlComponents.queryItems = [
             URLQueryItem(name: "key", value: "ab1e1ff4488543e8925141822240908"),
             URLQueryItem(name: "q", value: coordinates),
             URLQueryItem(name: "days", value: "8"),

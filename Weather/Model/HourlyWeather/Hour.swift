@@ -30,7 +30,7 @@ struct Hour: Codable {
     enum CodingKeys: String, CodingKey {
         // Imperial
         case condition, humidity, uv
-        case currentTimestamp = "last_updated_epoch"
+        case currentTimestamp = "time_epoch"
         case temperatureF = "temp_f"
         case windSpeedMph = "wind_mph"
         case windDirection = "wind_dir"

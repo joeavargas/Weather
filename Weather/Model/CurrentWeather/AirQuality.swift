@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AirQuality: Codable {
-    let epaIndex: Int
+    let epaIndex: Int?
     var epaIndexDescription: String {
         switch epaIndex {
         case 0-50: return "Good"

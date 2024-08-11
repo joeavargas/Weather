@@ -13,7 +13,8 @@ struct ForecastDay: Codable {
     let hour: [Hour]
     
     enum CodingKeys: String, CodingKey {
-        case day, hour
+        case day
+        case hour
         case timestamp = "date_epoch"
     }
 }
