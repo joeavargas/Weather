@@ -15,7 +15,7 @@ class Network {
         var urlComponents = URLComponents(string: "https://api.weatherapi.com/v1/forecast.json")!
         let coordinates = "\(lat)" + "," + "\(lon)"
         urlComponents.queryItems = [
-            URLQueryItem(name: "key", value: "ab1e1ff4488543e8925141822240908"),
+            URLQueryItem(name: "key", value: API.key),
             URLQueryItem(name: "q", value: coordinates),
             URLQueryItem(name: "days", value: "8"),
             URLQueryItem(name: "aqi", value: "yes")
