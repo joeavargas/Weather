@@ -26,7 +26,6 @@ class Network {
         let (data, _) = try await shared.data(from: url)
         let decodedData = try JSONDecoder().decode(T.self, from: data)
         
-        print("DEBUG: decoded data: \(decodedData)")
         return decodedData
     }
     
