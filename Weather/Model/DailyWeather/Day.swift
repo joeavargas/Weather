@@ -9,20 +9,21 @@ import Foundation
 
 struct Day: Codable {
     let condition: WeatherCondition
-    let uv: Int
+    let uv: Double
     let airQuality: AirQuality
     
     // Imperial
-    let maxTemperatureF: Int
-    let minTemperatureF: Int
+    let maxTemperatureF: Double
+    let minTemperatureF: Double
     
     // Metric
-    let maxTemperatureC: Int
-    let minTemperatureC: Int
+    let maxTemperatureC: Double
+    let minTemperatureC: Double
 
     
     enum CodingKeys: String, CodingKey {
-        case condition, uv, airQuality
+        case condition, uv
+        case airQuality = "air_quality"
         
         // Imperial
         case maxTemperatureF = "maxtemp_f"
