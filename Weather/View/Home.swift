@@ -13,11 +13,17 @@ struct Home: View {
     @StateObject private var vm = WeatherViewModel()
     
     var body: some View {
-        VStack {
+        switch LocationManager.shared.authorizationStatus {
+        case .denied, .notDetermined, .restricted:
+            VStack(spacing: 30) {
+                Text("\(location)")
+                if let locationAuthStatus = LocationManager.shared.authorizationStatus {
+                    Text(locationAuthStatus.rawValue)
+                }
+            }
+            
+        default:
             Text("\(location)")
-        }
-        .task {
-            await vm.loadWeatherData(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
         }
     }
 }

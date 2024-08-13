@@ -10,7 +10,7 @@ import CoreLocation
 class LocationManager: NSObject, ObservableObject {
     private let manager = CLLocationManager()
     @Published var location: CLLocation?
-    @Published var authorizationStatus: String? = nil
+    @Published var authorizationStatus: LocationAuthStatus? = .none
     
     static let shared = LocationManager()
     
@@ -33,16 +33,19 @@ extension LocationManager: CLLocationManagerDelegate {
         switch status {
             
         case .notDetermined:
-            print("DEBUG: not determined")
+            authorizationStatus = .notDetermined
+            print("DEBUG: \(String(describing: authorizationStatus?.rawValue))")
         case .restricted:
-            print("DEBUG: restricted")
+            authorizationStatus = .restricted
+            print("DEBUG: \(String(describing: authorizationStatus?.rawValue))")
         case .denied:
-            print("DEBUG: denied")
-        case .authorizedAlways:
-            print("DEBUG: auth always")
-        case .authorizedWhenInUse:
-            print("DEBUG: auth when in use")
-        @unknown default:
+            authorizationStatus = .denied
+            location = Locations.appleHeadquarters
+            print("DEBUG: \(String(describing: authorizationStatus?.rawValue))")
+        case .authorizedWhenInUse, .authorizedAlways:
+            break
+
+        default:
             break
         }
     }
@@ -52,4 +55,11 @@ extension LocationManager: CLLocationManagerDelegate {
         
         self.location = location
     }
+}
+
+enum LocationAuthStatus: String, CaseIterable {
+    case authorizedWhenInUse, authorizedAlways
+    case notDetermined = "Location status not determined. Please enabled Location Services in Settings to view local weather data"
+    case restricted = "Location status restricted. Please enabled Location Services in Settings to view local weather data"
+    case denied = "Location status denied. Please enabled Location Services in Settings to view local weather data"
 }

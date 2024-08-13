@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E301BED72C6B7E7900BAB735 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E301BED62C6B7E7900BAB735 /* Locations.swift */; };
 		E30333C82C5DC1D6008C6502 /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30333C72C5DC1D6008C6502 /* WeatherApp.swift */; };
 		E30333CC2C5DC1D8008C6502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30333CB2C5DC1D8008C6502 /* Assets.xcassets */; };
 		E30333CF2C5DC1D8008C6502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30333CE2C5DC1D8008C6502 /* Preview Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E301BED62C6B7E7900BAB735 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		E30333C42C5DC1D6008C6502 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30333C72C5DC1D6008C6502 /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		E30333CB2C5DC1D8008C6502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E301BED52C6B7E6100BAB735 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E301BED62C6B7E7900BAB735 /* Locations.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E30333BB2C5DC1D6008C6502 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +99,7 @@
 				E30333D92C5DC3E9008C6502 /* Service */,
 				E30333D82C5DC3D9008C6502 /* Extensions */,
 				E3B795D12C6A419800C6CDBC /* WeatherAPI */,
+				E301BED52C6B7E6100BAB735 /* Helpers */,
 				E30333CB2C5DC1D8008C6502 /* Assets.xcassets */,
 				E30333CD2C5DC1D8008C6502 /* Preview Content */,
 			);
@@ -278,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E301BED72C6B7E7900BAB735 /* Locations.swift in Sources */,
 				E3FBEEB52C67CA430063881C /* Network.swift in Sources */,
 				E3B6A6E62C664A18003A856C /* Hour.swift in Sources */,
 				E3B795D82C6A6FD600C6CDBC /* LocationRequestView.swift in Sources */,
