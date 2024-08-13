@@ -42,8 +42,10 @@ extension LocationManager: CLLocationManagerDelegate {
             authorizationStatus = .denied
             location = Locations.appleHeadquarters
             print("DEBUG: \(String(describing: authorizationStatus?.rawValue))")
-        case .authorizedWhenInUse, .authorizedAlways:
-            break
+        case .authorizedWhenInUse:
+            authorizationStatus = .authorizedWhenInUse
+        case .authorizedAlways:
+            authorizationStatus = .authorizedAlways
 
         default:
             break

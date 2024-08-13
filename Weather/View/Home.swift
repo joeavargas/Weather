@@ -20,6 +20,9 @@ struct Home: View {
                 if let locationAuthStatus = LocationManager.shared.authorizationStatus {
                     Text(locationAuthStatus.rawValue)
                 }
+                // TODO: add some sort of non-instrusive view that let's the user know
+                // that their location is not in use but have a button available to trigger
+                // asking the user to share their location.
             }
             
         default:
