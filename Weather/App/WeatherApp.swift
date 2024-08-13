@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
+    @ObservedObject var locationManager = LocationManager.shared
+    
     var body: some Scene {
         WindowGroup {
-            Home()
+            if locationManager.location == nil {
+                LocationRequestView()
+            } else if let location = locationManager.location {
+                Home(location: location)
+            }
         }
     }
 }

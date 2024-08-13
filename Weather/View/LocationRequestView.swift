@@ -35,7 +35,6 @@ struct LocationRequestView: View {
                 Text("Start sharing your location")
                     .font(.system(size: 20))
                     .multilineTextAlignment(.center)
-//                    .frame(width: 140)
                     .padding()
                 
                 Spacer()

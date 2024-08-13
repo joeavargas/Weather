@@ -9,7 +9,7 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject {
     private let manager = CLLocationManager()
-    @Published var userLocation: CLLocation?
+    @Published var location: CLLocation?
     @Published var authorizationStatus: String? = nil
     
     static let shared = LocationManager()
@@ -28,17 +28,20 @@ class LocationManager: NSObject, ObservableObject {
 }
 
 extension LocationManager: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
             
-        case .notDetermined, .restricted, .denied:
-            authorizationStatus = "Please enable Location Services in Settings to see your local weather data"
-            /// Set `userLocation` to Apple HQ coordinates
-            userLocation = CLLocation(latitude: 37.334606, longitude: -122.009102)
+        case .notDetermined:
+            print("DEBUG: not determined")
+        case .restricted:
+            print("DEBUG: restricted")
+        case .denied:
+            print("DEBUG: denied")
         case .authorizedAlways:
-            print("DEBUG: authorization always", #function)
+            print("DEBUG: auth always")
         case .authorizedWhenInUse:
-            print("DEBUG: authorization when in use", #function)
+            print("DEBUG: auth when in use")
         @unknown default:
             break
         }
@@ -47,6 +50,6 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        self.userLocation = location
+        self.location = location
     }
 }
