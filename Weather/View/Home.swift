@@ -13,20 +13,27 @@ struct Home: View {
     @StateObject private var vm = WeatherViewModel()
     
     var body: some View {
-        switch LocationManager.shared.authorizationStatus {
-        case .denied, .notDetermined, .restricted:
-            VStack(spacing: 30) {
-                Text("\(location)")
-                if let locationAuthStatus = LocationManager.shared.authorizationStatus {
-                    Text(locationAuthStatus.rawValue)
+        VStack{
+            switch LocationManager.shared.authorizationStatus {
+            case .denied, .notDetermined, .restricted:
+                VStack(spacing: 30) {
+                    Text("\(location)")
+                    if let locationAuthStatus = LocationManager.shared.authorizationStatus {
+                        Text(locationAuthStatus.rawValue)
+                    }
+                    // TODO: add some sort of non-instrusive view that let's the user know
+                    // that their location is not in use but have a button available to trigger
+                    // asking the user to share their location.
                 }
-                // TODO: add some sort of non-instrusive view that let's the user know
-                // that their location is not in use but have a button available to trigger
-                // asking the user to share their location.
+                
+            default:
+                if let weatherData = vm.weatherData {
+                    CurrentWeatherView(weatherData: weatherData)
+                }
             }
-            
-        default:
-            Text("\(location)")
+        }
+        .task {
+           await vm.loadWeatherData(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
         }
     }
 }

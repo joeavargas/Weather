@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E301BED72C6B7E7900BAB735 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E301BED62C6B7E7900BAB735 /* Locations.swift */; };
+		E301BED92C6E005C00BAB735 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E301BED82C6E005C00BAB735 /* CurrentWeatherView.swift */; };
 		E30333C82C5DC1D6008C6502 /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30333C72C5DC1D6008C6502 /* WeatherApp.swift */; };
 		E30333CC2C5DC1D8008C6502 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30333CB2C5DC1D8008C6502 /* Assets.xcassets */; };
 		E30333CF2C5DC1D8008C6502 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30333CE2C5DC1D8008C6502 /* Preview Assets.xcassets */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		E301BED62C6B7E7900BAB735 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		E301BED82C6E005C00BAB735 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		E30333C42C5DC1D6008C6502 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30333C72C5DC1D6008C6502 /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		E30333CB2C5DC1D8008C6502 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				E30333DB2C5DC500008C6502 /* Home.swift */,
 				E3B795D72C6A6FD600C6CDBC /* LocationRequestView.swift */,
+				E301BED82C6E005C00BAB735 /* CurrentWeatherView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				E301BED72C6B7E7900BAB735 /* Locations.swift in Sources */,
 				E3FBEEB52C67CA430063881C /* Network.swift in Sources */,
 				E3B6A6E62C664A18003A856C /* Hour.swift in Sources */,
+				E301BED92C6E005C00BAB735 /* CurrentWeatherView.swift in Sources */,
 				E3B795D82C6A6FD600C6CDBC /* LocationRequestView.swift in Sources */,
 				E39BE70D2C667A14000E71D4 /* AirQuality.swift in Sources */,
 				E3F52C182C67D6760074B6AF /* WeatherViewModel.swift in Sources */,
