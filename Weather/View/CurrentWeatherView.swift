@@ -134,6 +134,6 @@ struct HourlyViewCard: View {
     }
 }
 
-//#Preview {
-//    CurrentWeatherView(weatherData: .init(location: <#T##WeatherLocation#>, current: <#T##CurrentWeather#>, forecast: <#T##Forecast#>))
-//}
+#Preview {
+    CurrentWeatherView(weatherData: .init(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample, forecast: CurrentWeatherResponse.forecastSample))
+}
