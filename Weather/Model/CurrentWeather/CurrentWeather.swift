@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct CurrentWeather: Codable {
     // Imperial
@@ -58,6 +59,16 @@ extension CurrentWeather {
         case 6...7: return "High"
         case 8...10: return "Very High"
         default: return "Extreme"
+        }
+    }
+    
+    var uvExposureCategorColor: Color {
+        switch uv {
+        case 0...2: return .green
+        case 3...5: return .yellow
+        case 6...7: return .orange
+        case 8...10: return .red
+        default: return .maroon
         }
     }
     

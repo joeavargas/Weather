@@ -50,27 +50,27 @@ struct CurrentWeatherForecastView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "cloud.sun.rain")
+            weatherData.current.condition.iconImage.renderingMode(.original)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 300, height: 300)
+                .frame(width: 200, height: 200)
                 .padding()
             
             HStack {
                 
                 VStack {
                     Text("Temp")
-                    Text("32°")
+                    Text("\(Int(weatherData.current.temperatureF))°")
                 }
                 Spacer()
                 VStack {
                     Text("Wind")
-                    Text("10mph")
+                    Text("\(Int(weatherData.current.windSpeedMph))mph")
                 }
                 Spacer()
                 VStack {
                     Text("Humidity")
-                    Text("75%")
+                    Text("\(weatherData.current.humidity)%")
                 }
             }
             .padding(.horizontal)
@@ -84,18 +84,25 @@ struct CurrentWeatherAirQualityAndUvView: View {
     var body: some View {
         VStack(spacing: 50) {
             VStack {
-                Text("149")
-                    .font(.system(size: 100))
-                
-                Text("Unhealthy for Sensitive Groups")
-                    .font(.headline)
+                if let epaIndex = weatherData.current.airQuality.epaIndex {
+                Text("\(epaIndex)")
+                        .font(.system(size: 100))
+                    
+                    Text(weatherData.current.airQuality.epaIndexDescription)
+                        .font(.headline)
+                        .foregroundStyle(weatherData.current.airQuality.epaIndexBackgroundColor)
+                }
             }
             
-            VStack {
-                Text("10")
+            VStack(spacing: 12) {
+                Text("\(Int(weatherData.current.uv))")
                     .font(.system(size: 100))
                 
-                Text("Protection against sun damage is needed. If you need to be outside during midday hours between 10am and 4pm, take steps to reduce sun exposure. A shirt, hat and sunscreen are a must, and be sure to seek shade. Beachgoers should know that white sand and other bright surfaces reflect UV and can double UV exposure")
+                Text(weatherData.current.uvExposureCategory)
+                    .font(.headline)
+                    .foregroundStyle(weatherData.current.uvExposureCategorColor)
+                
+                Text(weatherData.current.uvDescription)
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
             }
@@ -109,8 +116,11 @@ struct CurrentWeatherHourlyView: View {
     var body: some View {
         ScrollView(.horizontal){
             HStack {
-                ForEach(0..<8) { _ in
-                    HourlyViewCard()
+                if let currentDay = weatherData.forecast.forecastDay.first {
+                    ForEach(currentDay.hour, id: \.currentTimestamp) { hour in
+                        HourlyViewCard(hour: hour)
+
+                    }
                 }
             }
         }
@@ -119,18 +129,20 @@ struct CurrentWeatherHourlyView: View {
 }
 
 struct HourlyViewCard: View {
-    
+    let hour: Hour
     var body: some View {
         HStack {
-            Image(systemName: "cloud.sun.rain")
+            hour.condition.iconImage
                 .resizable()
                 .scaledToFill()
                 .frame(width: 50, height: 50)
+                .padding()
             VStack {
-                Text("1:00 PM")
-                Text("100°")
+                Text(hour.formattedHour)
+                Text("\(Int(hour.temperatureF))°")
             }
         }
+        .padding()
     }
 }
 
