@@ -116,10 +116,9 @@ struct CurrentWeatherHourlyView: View {
     var body: some View {
         ScrollView(.horizontal){
             HStack {
-                if let currentDay = weatherData.forecast.forecastDay.first {
-                    ForEach(currentDay.hour, id: \.currentTimestamp) { hour in
+                if let filteredHours = weatherData.forecast.forecastDay.first?.filteredHours {
+                    ForEach(filteredHours, id: \.currentTimestamp) { hour in
                         HourlyViewCard(hour: hour)
-
                     }
                 }
             }
