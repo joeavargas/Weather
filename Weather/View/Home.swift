@@ -27,8 +27,12 @@ struct Home: View {
                 }
                 
             default:
-                if let weatherData = vm.weatherData {
-                    CurrentWeatherView(weatherData: weatherData)
+                if vm.isLoading {
+                    ProgressView()
+                } else {
+                    if let weatherData = vm.weatherData {
+                        CurrentWeatherView(weatherData: weatherData)
+                    }
                 }
             }
         }
