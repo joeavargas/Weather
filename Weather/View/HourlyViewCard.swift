@@ -10,18 +10,27 @@ import SwiftUI
 struct HourlyViewCard: View {
     let hour: Hour
     var body: some View {
-        HStack {
-            hour.condition.iconImage
-                .resizable()
-                .scaledToFill()
-                .frame(width: 50, height: 50)
-                .padding()
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill( Color.nextHourBlue)
+            
             VStack {
-                Text(hour.formattedHour)
-                Text("\(Int(hour.temperatureF))°")
+                HStack(spacing: 10) {
+                    hour.condition.iconImage
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                    
+                    VStack {
+                        Text(hour.formattedHour)
+                        Text("\(Int(hour.temperatureF))°")
+                    }
+                }
+                .padding()
             }
+            .padding(.horizontal, 6)
         }
-        .padding()
+        .frame(height: 75)
     }
 }
 
