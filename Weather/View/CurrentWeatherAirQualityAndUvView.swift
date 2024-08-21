@@ -13,15 +13,9 @@ struct CurrentWeatherAirQualityAndUvView: View {
     var body: some View {
         VStack(spacing: 50) {
             VStack {
-                if let epaIndex = weatherData.current.airQuality.epaIndex {
-                Text("\(epaIndex)")
-                        .font(.system(size: 100))
-                    
-                    Text(weatherData.current.airQuality.epaIndexDescription)
-                        .font(.headline)
-                        .foregroundStyle(weatherData.current.airQuality.epaIndexBackgroundColor)
-                }
+                AirQualityCardView(airQuality: weatherData.current.airQuality)
             }
+            .padding(.horizontal)
             
             VStack(spacing: 12) {
                 Text("\(Int(weatherData.current.uv))")
