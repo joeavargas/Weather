@@ -11,24 +11,13 @@ struct CurrentWeatherAirQualityAndUvView: View {
     let weatherData: CurrentWeatherResponse
     
     var body: some View {
-        VStack(spacing: 50) {
+        VStack(spacing: 20) {
             VStack {
                 AirQualityCardView(airQuality: weatherData.current.airQuality)
             }
             .padding(.horizontal)
             
-            VStack(spacing: 12) {
-                Text("\(Int(weatherData.current.uv))")
-                    .font(.system(size: 100))
-                
-                Text(weatherData.current.uvExposureCategory)
-                    .font(.headline)
-                    .foregroundStyle(weatherData.current.uvExposureCategorColor)
-                
-                Text(weatherData.current.uvDescription)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-            }
+            UVCardView(currentWeather: weatherData.current)
         }
         .padding()
     }

@@ -30,7 +30,10 @@ struct CurrentWeatherView: View {
                 
                 switch pickerSelection {
                 case 0: CurrentWeatherForecastView(weatherData: weatherData)
-                default: CurrentWeatherAirQualityAndUvView(weatherData: weatherData)
+                default: 
+                    ScrollView {
+                        CurrentWeatherAirQualityAndUvView(weatherData: weatherData)
+                    }
                 }
                 
                 if pickerSelection == 0 {
