@@ -16,7 +16,7 @@ struct WeatherApp: App {
             if locationManager.location == nil {
                 LocationRequestView()
             } else if let location = locationManager.location {
-                Home(location: location)
+                TabViewContainer(location: location)
             }
         }
     }

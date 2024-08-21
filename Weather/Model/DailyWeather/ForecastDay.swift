@@ -18,3 +18,20 @@ struct ForecastDay: Codable {
         case timestamp = "date_epoch"
     }
 }
+extension ForecastDay {
+    var filteredHours: [Hour] {
+        // Get the current hour from the current time
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        // Filter the hours array
+        let filteredHours = hour.filter { hour in
+            // Convert the unix timestamp hour element from array
+            let date = Date(timeIntervalSince1970: Double(hour.currentTimestamp))
+            // Get hour from every hour element
+            let hourComponent = Calendar.current.component(.hour, from: date)
+            // Return true if the hour component is greater than the current hour
+            return hourComponent > currentHour
+        }
+        
+        return filteredHours
+    }
+}

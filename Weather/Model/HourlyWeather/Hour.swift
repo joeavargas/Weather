@@ -46,3 +46,14 @@ struct Hour: Codable {
         case visibilityKm = "vis_km"
     }
 }
+extension Hour {
+    var formattedHour: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(currentTimestamp))
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "h a"
+                
+        return dateFormatter.string(from: date)
+    }
+}
