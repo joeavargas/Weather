@@ -11,37 +11,42 @@ struct CurrentWeatherView: View {
     let weatherData: CurrentWeatherResponse
     @State private var pickerSelection = 0
     var body: some View {
-        VStack(spacing: 30) {
-            VStack(spacing: 10) {
-                Text(weatherData.location.cityAndStateRegion)
-                
-                Text("\(weatherData.location.formattedDate)")
-            }
+        ZStack {
             
-            Picker("", selection: $pickerSelection) {
-                Text("Forecast").tag(0)
-                Text("AQI & UV").tag(1)
-            }
-            .pickerStyle(.segmented)
+            GradientBackgroundView()
             
-            switch pickerSelection {
-            case 0: CurrentWeatherForecastView(weatherData: weatherData)
-            default: CurrentWeatherAirQualityAndUvView(weatherData: weatherData)
-            }
-            
-            if pickerSelection == 0 {
-                HStack {
-                    Text("Today")
-                    Spacer()
-                    Text("View full report")
+            VStack(spacing: 30) {
+                VStack(spacing: 10) {
+                    Text(weatherData.location.cityAndStateRegion)
+                    
+                    Text("\(weatherData.location.formattedDate)")
                 }
                 
-                // Hourly Weather View
-                CurrentWeatherHourlyView(weatherData: weatherData)
+                Picker("", selection: $pickerSelection) {
+                    Text("Forecast").tag(0)
+                    Text("AQI & UV").tag(1)
+                }
+                .pickerStyle(.segmented)
+                
+                switch pickerSelection {
+                case 0: CurrentWeatherForecastView(weatherData: weatherData)
+                default: CurrentWeatherAirQualityAndUvView(weatherData: weatherData)
+                }
+                
+                if pickerSelection == 0 {
+                    HStack {
+                        Text("Today")
+                        Spacer()
+                        Text("View full report")
+                    }
+                    
+                    // Hourly Weather View
+                    CurrentWeatherHourlyView(weatherData: weatherData)
+                }
+                Spacer()
             }
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
