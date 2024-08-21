@@ -49,6 +49,7 @@ struct CurrentWeatherView: View {
                 Spacer()
             }
             .padding()
+            
         }
     }
 }

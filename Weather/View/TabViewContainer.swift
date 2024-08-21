@@ -22,7 +22,7 @@ struct TabViewContainer: View {
                     Label("", systemImage: "magnifyingglass")
                 }
             
-            Text("ForecastReportView")
+            ForecastReportView()
                 .tabItem {
                     Label("", systemImage: "chart.xyaxis.line")
                 }
