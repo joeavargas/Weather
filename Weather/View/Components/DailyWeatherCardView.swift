@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DailyWeatherCardView: View {
+    let day: ForecastDay
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -15,19 +16,19 @@ struct DailyWeatherCardView: View {
             
             VStack {
                 HStack {
-                    VStack(spacing: 8) {
-                        Text("Friday")
-                        Text("May 28")
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(day.formattedDay)
+                        Text(day.formattedDate)
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
                     
-                    Text("32°")
+                    Text("\(Int(day.day.maxTemperatureF))°")
                         .font(.system(size: 40))
                     
                     Spacer()
                     
-                    Image(systemName: "cloud.sun")
+                    day.day.condition.iconImage
                         .resizable()
                         .scaledToFill()
                         .frame(width: 50, height: 50)
@@ -42,5 +43,5 @@ struct DailyWeatherCardView: View {
 }
 
 #Preview {
-    DailyWeatherCardView()
+    DailyWeatherCardView(day: CurrentWeatherResponse.forecastSample.forecastDay.first!)
 }
