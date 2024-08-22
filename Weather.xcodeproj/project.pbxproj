@@ -17,6 +17,7 @@
 		E357F6DA2C763B5100A5FD6B /* AirQualityCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E357F6D92C763B5100A5FD6B /* AirQualityCardView.swift */; };
 		E357F6DC2C76483800A5FD6B /* UVCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E357F6DB2C76483800A5FD6B /* UVCardView.swift */; };
 		E357F6DE2C76548400A5FD6B /* ForecastReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E357F6DD2C76548400A5FD6B /* ForecastReportView.swift */; };
+		E357F6E02C76581500A5FD6B /* DailyWeatherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E357F6DF2C76581500A5FD6B /* DailyWeatherCardView.swift */; };
 		E39BE7072C667736000E71D4 /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE7062C667736000E71D4 /* WeatherLocation.swift */; };
 		E39BE7092C6677F6000E71D4 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE7082C6677F6000E71D4 /* CurrentWeather.swift */; };
 		E39BE70B2C667993000E71D4 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE70A2C667993000E71D4 /* WeatherCondition.swift */; };
@@ -51,6 +52,7 @@
 		E357F6D92C763B5100A5FD6B /* AirQualityCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityCardView.swift; sourceTree = "<group>"; };
 		E357F6DB2C76483800A5FD6B /* UVCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVCardView.swift; sourceTree = "<group>"; };
 		E357F6DD2C76548400A5FD6B /* ForecastReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastReportView.swift; sourceTree = "<group>"; };
+		E357F6DF2C76581500A5FD6B /* DailyWeatherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCardView.swift; sourceTree = "<group>"; };
 		E39BE7062C667736000E71D4 /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
 		E39BE7082C6677F6000E71D4 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		E39BE70A2C667993000E71D4 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				E357F6D72C76386900A5FD6B /* GradientBackgroundView.swift */,
 				E357F6D92C763B5100A5FD6B /* AirQualityCardView.swift */,
 				E357F6DB2C76483800A5FD6B /* UVCardView.swift */,
+				E357F6DF2C76581500A5FD6B /* DailyWeatherCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				E3BFF9D72C739A0500772C06 /* HourlyViewCard.swift in Sources */,
 				E3FBEEB32C6768120063881C /* ForecastDay.swift in Sources */,
 				E39BE7092C6677F6000E71D4 /* CurrentWeather.swift in Sources */,
+				E357F6E02C76581500A5FD6B /* DailyWeatherCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

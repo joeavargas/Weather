@@ -33,6 +33,11 @@ struct ForecastReportView: View {
                 
                 // ScrollView(vertical)
                 // Daily weather
+                ScrollView {
+                    ForEach(0..<10) { _ in
+                        DailyWeatherCardView()
+                    }
+                }
             }
             .foregroundStyle(.white)
             .padding(.horizontal)
