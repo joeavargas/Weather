@@ -14,7 +14,3 @@ struct Forecast: Codable {
         case forecastDay = "forecastday"
     }
 }
-extension Forecast {
-    // TODO: filter out the first two elements aka the first two days and generate a new array
-    /// Example: `var filteredDays: [ForecastDay] {...}`
-}

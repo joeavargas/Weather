@@ -43,9 +43,9 @@ struct ForecastReportView: View {
                 .padding([.top, .bottom])
                 
                 ScrollView {
-                    ForEach(weatherData.forecast.forecastDay, id: \.timestamp) { day in
+                    /// `dropFirst(2)` elements which are `yesterday's` and `today's` date
+                    ForEach(weatherData.forecast.forecastDay.dropFirst(2), id: \.timestamp) { day in
                         DailyWeatherCardView(day: day)
-                        
                     }
                 }
             }
