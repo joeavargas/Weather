@@ -10,27 +10,33 @@ import SwiftUI
 struct DailyWeatherCardView: View {
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(Color.lightNavyBlue)
             
-            HStack {
-                VStack {
-                    Text("Friday")
-                    Text("May 28")
+            VStack {
+                HStack {
+                    VStack(spacing: 8) {
+                        Text("Friday")
+                        Text("May 28")
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    
+                    Text("32°")
+                        .font(.system(size: 40))
+                    
+                    Spacer()
+                    
+                    Image(systemName: "cloud.sun")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 50, height: 50)
+                    
                 }
-                Spacer()
-                
-                Text("32°")
-                    .font(.title)
-                
-                Spacer()
-                
-                Image(systemName: "cloud.sun")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
+                .foregroundStyle(.white)
+            .padding()
             }
-            .foregroundStyle(.white)
+            .padding(.horizontal)
         }
     }
 }

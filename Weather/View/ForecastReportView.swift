@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ForecastReportView: View {
+    let weatherData: CurrentWeatherResponse
     var body: some View {
         ZStack {
             GradientBackgroundView()
@@ -22,17 +23,25 @@ struct ForecastReportView: View {
                     Text("August 21, 2024")
                 }
                 
-                // ScrollView(horizontal)
-                // Array of Hourly Data
+                ScrollView(.horizontal){
+                    HStack {
+                        if let filteredHours = weatherData.forecast.forecastDay.first?.filteredHours {
+                            ForEach(filteredHours, id: \.currentTimestamp) { hour in
+                                HourlyViewCard(hour: hour)
+                            }
+                        }
+                    }
+                }
+                .padding([.top, .bottom])
+                .scrollIndicators(.hidden)
                 
                 HStack {
                     Text("Next Forecast")
                     Spacer()
                     Image(systemName: "calendar")
                 }
+                .padding([.top, .bottom])
                 
-                // ScrollView(vertical)
-                // Daily weather
                 ScrollView {
                     ForEach(0..<10) { _ in
                         DailyWeatherCardView()
@@ -46,5 +55,5 @@ struct ForecastReportView: View {
 }
 
 #Preview {
-    ForecastReportView()
+    ForecastReportView(weatherData: .init(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample, forecast: CurrentWeatherResponse.forecastSample))
 }
