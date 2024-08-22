@@ -9,15 +9,13 @@ import SwiftUI
 import CoreLocation
 
 struct Home: View {
-    let location: CLLocation
-    @StateObject private var vm = WeatherViewModel()
-    
+    let weatherData: CurrentWeatherResponse
+    let vm: WeatherViewModel
     var body: some View {
         VStack{
             switch LocationManager.shared.authorizationStatus {
             case .denied, .notDetermined, .restricted:
                 VStack(spacing: 30) {
-                    Text("\(location)")
                     if let locationAuthStatus = LocationManager.shared.authorizationStatus {
                         Text(locationAuthStatus.rawValue)
                     }
@@ -36,12 +34,9 @@ struct Home: View {
                 }
             }
         }
-        .task {
-           await vm.loadWeatherData(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
-        }
     }
 }
 
 #Preview {
-    Home(location: CLLocation(latitude: 29.749907, longitude: -95.358421))
+    Home(weatherData: .init(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample, forecast: CurrentWeatherResponse.forecastSample), vm: WeatherViewModel())
 }

@@ -19,6 +19,29 @@ struct ForecastDay: Codable {
     }
 }
 extension ForecastDay {
+    
+    /// Returns `Thursday`
+    var formattedDay: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "EEEE"
+                
+        return dateFormatter.string(from: date)
+    }
+    
+    /// Returns `August 22`
+    var formattedDate: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "MMMM dd"
+                
+        return dateFormatter.string(from: date)
+    }
+    
     var filteredHours: [Hour] {
         // Get the current hour from the current time
         let currentHour = Calendar.current.component(.hour, from: Date())
