@@ -26,6 +26,10 @@ struct PickLocationView: View {
                     Text("Find the area or city that you want to know the detailed weather info at this time")
                         .multilineTextAlignment(.center)
                     
+                    SearchView()
+                        .padding([.top, .bottom], 50)
+                        
+                    
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(0..<5) { _ in
