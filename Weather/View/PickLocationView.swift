@@ -8,20 +8,36 @@
 import SwiftUI
 
 struct PickLocationView: View {
+    let columns = [
+        GridItem(.fixed(150)),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         ZStack {
             GradientBackgroundView()
             
             VStack {
-                Text("Pick Location")
-                    .font(.title)
-                    .padding(.bottom)
-                
-                Text("Find the area or city that you want to know the detailed weather info at this time")
-                    .multilineTextAlignment(.center)
+                VStack {
+                    Text("Pick Location")
+                        .font(.title)
+                        .padding(.bottom)
+                    
+                    Text("Find the area or city that you want to know the detailed weather info at this time")
+                        .multilineTextAlignment(.center)
+                    
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(0..<5) { _ in
+                                LocationCardView()
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 22)
             }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 22)
         }
     }
 }
