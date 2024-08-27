@@ -22,6 +22,7 @@
 		E385877F2C7E239A00425970 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385877E2C7E239A00425970 /* LocationCardView.swift */; };
 		E38587812C7E2F5300425970 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38587802C7E2F5300425970 /* SearchView.swift */; };
 		E38587832C7E333F00425970 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38587822C7E333F00425970 /* View.swift */; };
+		E38587852C7E35BF00425970 /* MyLocationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38587842C7E35BF00425970 /* MyLocationButtonView.swift */; };
 		E39BE7072C667736000E71D4 /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE7062C667736000E71D4 /* WeatherLocation.swift */; };
 		E39BE7092C6677F6000E71D4 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE7082C6677F6000E71D4 /* CurrentWeather.swift */; };
 		E39BE70B2C667993000E71D4 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BE70A2C667993000E71D4 /* WeatherCondition.swift */; };
@@ -61,6 +62,7 @@
 		E385877E2C7E239A00425970 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		E38587802C7E2F5300425970 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		E38587822C7E333F00425970 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		E38587842C7E35BF00425970 /* MyLocationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocationButtonView.swift; sourceTree = "<group>"; };
 		E39BE7062C667736000E71D4 /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
 		E39BE7082C6677F6000E71D4 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		E39BE70A2C667993000E71D4 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				E357F6DF2C76581500A5FD6B /* DailyWeatherCardView.swift */,
 				E385877E2C7E239A00425970 /* LocationCardView.swift */,
 				E38587802C7E2F5300425970 /* SearchView.swift */,
+				E38587842C7E35BF00425970 /* MyLocationButtonView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				E3F52C182C67D6760074B6AF /* WeatherViewModel.swift in Sources */,
 				E3B795D62C6A4F2A00C6CDBC /* LocationManager.swift in Sources */,
 				E3B795D32C6A41BD00C6CDBC /* API.swift in Sources */,
+				E38587852C7E35BF00425970 /* MyLocationButtonView.swift in Sources */,
 				E3FBEEB12C6762150063881C /* Forecast.swift in Sources */,
 				E39BE70F2C6680F4000E71D4 /* Color.swift in Sources */,
 				E3B6A6DB2C6643FC003A856C /* CurrentWeatherResponse.swift in Sources */,
