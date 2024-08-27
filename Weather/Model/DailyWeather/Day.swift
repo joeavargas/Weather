@@ -10,7 +10,7 @@ import Foundation
 struct Day: Codable {
     let condition: WeatherCondition
     let uv: Double
-    let airQuality: AirQuality
+    let airQuality: AirQuality?
     
     // Imperial
     let maxTemperatureF: Double

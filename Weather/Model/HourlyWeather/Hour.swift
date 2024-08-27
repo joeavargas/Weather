@@ -19,7 +19,7 @@ struct Hour: Codable {
     let feelsLikeTemperatureF: Double
     let visibilityMiles: Double
     let uv: Double
-    let airQuality: AirQuality
+    let airQuality: AirQuality?
     
     // Metric
     let temperatureC: Double
