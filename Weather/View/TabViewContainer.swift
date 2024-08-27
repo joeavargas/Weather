@@ -20,7 +20,7 @@ struct TabViewContainer: View {
                     }
                 
                 
-                Text("SearchView")
+                PickLocationView()
                     .tabItem {
                         Label("", systemImage: "magnifyingglass")
                     }
