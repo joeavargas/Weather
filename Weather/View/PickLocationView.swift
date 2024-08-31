@@ -36,13 +36,35 @@ struct PickLocationView: View {
                     }
                     .padding([.top, .bottom], 50)
                     
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(0..<5) { _ in
-                                LocationCardView()
+                    if viewModel.searchResults.isEmpty {
+                        // Display stored cities when there are no search results
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(viewModel.storedCities) { storedCity in
+                                    LocationCardView(storedCity: storedCity)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    } else {
+                        // Display search results
+                        List(viewModel.searchResults) { city in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(city.name)
+                                        .font(.subheadline)
+                                    Text(city.state)
+                                        .font(.subheadline)
+                                }
+                                .foregroundStyle(.black)
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                print("DEBUG: \(city)")
                             }
                         }
-                        .padding(.horizontal)
+                        
                     }
                 }
                 .foregroundStyle(.white)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LocationCardView: View {
+    let storedCity: SearchedCity
+    
     private let imageDimensions = 40.0
     var body: some View {
         ZStack {
@@ -32,7 +34,7 @@ struct LocationCardView: View {
                             .frame(width: imageDimensions, height: imageDimensions)
                     }
                     
-                    Text("California")
+                    Text(storedCity.name)
                         .foregroundStyle(.white)
                 }
                 .padding()
@@ -43,5 +45,8 @@ struct LocationCardView: View {
 }
 
 #Preview {
-    LocationCardView()
+    LocationCardView(storedCity: .init(name: "Waco",
+                                       state: "Texas",
+                                       latitude: 0.0,
+                                       longitude: 0.0))
 }
