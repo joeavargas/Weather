@@ -40,6 +40,11 @@ struct TabViewContainer: View {
         .task {
             await vm.loadWeatherData(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
         }
+        .onChange(of: location) {
+            Task {
+                await vm.loadWeatherData(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
+            }
+        }
     }
 }
 
