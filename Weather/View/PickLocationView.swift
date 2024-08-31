@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct PickLocationView: View {
+    
+    @StateObject private var viewModel = PickLocationViewModel()
+    
     let columns = [
         GridItem(.fixed(150)),
         GridItem(.flexible())
@@ -27,7 +30,7 @@ struct PickLocationView: View {
                         .multilineTextAlignment(.center)
                     
                     HStack {
-                        SearchView()
+                        SearchView(searchText: $viewModel.searchText)
                         
                         MyLocationButtonView()
                     }

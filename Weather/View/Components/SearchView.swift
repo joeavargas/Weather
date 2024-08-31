@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -33,5 +33,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    SearchView(searchText: .constant("Houston"))
 }
