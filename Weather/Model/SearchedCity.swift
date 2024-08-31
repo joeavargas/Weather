@@ -11,6 +11,6 @@ struct SearchedCity: Identifiable, Codable {
     var id = UUID()
     var name: String
     var state: String
-    var latitude: Double
-    var longitude: Double
+    var latitude: Double?
+    var longitude: Double?
 }

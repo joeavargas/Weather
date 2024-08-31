@@ -70,6 +70,9 @@ struct PickLocationView: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, 22)
             }
+            .onChange(of: viewModel.searchText) {
+                viewModel.searchCity()
+            }
         }
     }
 }
