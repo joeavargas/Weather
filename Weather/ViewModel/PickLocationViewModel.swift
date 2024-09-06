@@ -13,6 +13,7 @@ class PickLocationViewModel: ObservableObject {
     @Published var searchResults: [SearchedCity] = []
     @Published var storedCities: [SearchedCity] = []
     
+    private let storageKey = "storedCities"
     
     func searchCity() {
         let geoCoder = CLGeocoder()
@@ -38,7 +39,13 @@ class PickLocationViewModel: ObservableObject {
     func selectedCity(selectedCity: SearchedCity) {
         getCoordinates(for: selectedCity.name + ", " + selectedCity.state) { [weak self] coordinate in
             guard let coordinate = coordinate else { return }
-            print("DEBUG: selected city coordinates: \(coordinate)")
+            
+            let selectedCity = SearchedCity(name: selectedCity.name,
+                                            state: selectedCity.state,
+                                            latitude: coordinate.latitude,
+                                            longitude: coordinate.longitude)
+            
+            self?.saveCity(selectedCity)
         }
     }
     
@@ -53,6 +60,28 @@ class PickLocationViewModel: ObservableObject {
             }
             
             completion(location.coordinate)
+        }
+    }
+    
+    private func saveCity(_ city: SearchedCity) {
+        storedCities.append(city)
+        print("DEBUG: city appended to storedCities")
+        storeToPersistentStorage()
+        
+    }
+    
+    private func storeToPersistentStorage() {
+        
+        if let data = try? JSONEncoder().encode(storedCities) {
+            UserDefaults.standard.set(data, forKey: storageKey)
+            print("DEBUG: city added to persistent data")
+        }
+    }
+    
+    func loadStoredCities() {
+        if let data = UserDefaults.standard.data(forKey: storageKey),
+           let savedCities = try? JSONDecoder().decode([SearchedCity].self, from: data) {
+            storedCities = savedCities
         }
     }
 }

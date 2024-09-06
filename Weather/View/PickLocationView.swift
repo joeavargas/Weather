@@ -77,6 +77,9 @@ struct PickLocationView: View {
                 viewModel.searchCity()
             }
         }
+        .onAppear {
+            viewModel.loadStoredCities()
+        }
     }
 }
 
