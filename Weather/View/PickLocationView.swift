@@ -48,12 +48,12 @@ struct PickLocationView: View {
                         }
                     } else {
                         // Display search results
-                        List(viewModel.searchResults) { city in
+                        List(viewModel.searchResults) { searchResult in
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text(city.name)
+                                    Text(searchResult.name)
                                         .font(.subheadline)
-                                    Text(city.state)
+                                    Text(searchResult.state)
                                         .font(.subheadline)
                                 }
                                 .foregroundStyle(.black)
@@ -61,7 +61,7 @@ struct PickLocationView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                print("DEBUG: \(city)")
+                                print("DEBUG: \(searchResult)")
                                 viewModel.searchResults.removeAll()
                             }
                         }
