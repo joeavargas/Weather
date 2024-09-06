@@ -62,7 +62,9 @@ struct PickLocationView: View {
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 print("DEBUG: \(searchResult)")
+                                viewModel.selectedCity(selectedCity: searchResult)
                                 viewModel.searchResults.removeAll()
+                                viewModel.searchText = ""
                             }
                         }
                         

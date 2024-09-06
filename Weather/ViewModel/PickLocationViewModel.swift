@@ -34,5 +34,26 @@ class PickLocationViewModel: ObservableObject {
             }
         }
     }
+    
+    func selectedCity(selectedCity: SearchedCity) {
+        getCoordinates(for: selectedCity.name + ", " + selectedCity.state) { [weak self] coordinate in
+            guard let coordinate = coordinate else { return }
+            print("DEBUG: selected city coordinates: \(coordinate)")
+        }
+    }
+    
+    private func getCoordinates(for address: String, 
+                                completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            guard let location = placemarks?.first?.location, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            completion(location.coordinate)
+        }
+    }
 }
 
