@@ -40,8 +40,8 @@ struct PickLocationView: View {
                         // Display stored cities when there are no search results
                         ScrollView {
                             LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(viewModel.storedCities) { storedCity in
-                                    LocationCardView(storedCity: storedCity)
+                                ForEach(viewModel.storedCityWeatherData) { storedCity in
+                                    LocationCardView(storedCityWeatherData: storedCity)
                                 }
                             }
                             .padding(.horizontal)

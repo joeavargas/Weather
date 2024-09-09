@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationCardView: View {
-    let storedCity: SearchedCity
+    let storedCityWeatherData: StoredCityWeatherData
     
     private let imageDimensions = 40.0
     var body: some View {
@@ -21,20 +21,20 @@ struct LocationCardView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 24) {
                         VStack(alignment: .leading) {
-                            Text("32")
+                            Text("\(Int(storedCityWeatherData.current.temperatureF))°")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            Text("Cloudy")
+                            Text(storedCityWeatherData.current.condition.description)
                                 .foregroundStyle(.secondary)
                         }
                         
-                        Image(systemName: "cloud.sun")
+                        storedCityWeatherData.current.condition.iconImage
                             .resizable()
                             .scaledToFill()
                             .frame(width: imageDimensions, height: imageDimensions)
                     }
                     
-                    Text(storedCity.name)
+                    Text(storedCityWeatherData.location.city)
                         .foregroundStyle(.white)
                 }
                 .padding()
@@ -45,8 +45,5 @@ struct LocationCardView: View {
 }
 
 #Preview {
-    LocationCardView(storedCity: .init(name: "Waco",
-                                       state: "Texas",
-                                       latitude: 0.0,
-                                       longitude: 0.0))
+    LocationCardView(storedCityWeatherData: StoredCityWeatherData(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample))
 }

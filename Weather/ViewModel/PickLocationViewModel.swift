@@ -8,10 +8,16 @@
 import Foundation
 import CoreLocation
 
+@MainActor
 class PickLocationViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searchResults: [SearchedCity] = []
     @Published var storedCities: [SearchedCity] = []
+    @Published var storedCityWeatherData: [StoredCityWeatherData] = []
+    private let network = Network()
+    
+    @Published var isLoading = false
+    @Published var errorMessage: String? = nil
     
     private let storageKey = "storedCities"
     
