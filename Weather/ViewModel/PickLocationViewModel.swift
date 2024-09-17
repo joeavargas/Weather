@@ -7,57 +7,87 @@
 
 import Foundation
 import CoreLocation
+import SwiftData
+import Combine
+
+
 
 @MainActor
 class PickLocationViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searchResults: [SearchedCity] = []
-    @Published var storedCities: [SearchedCity] = []
     @Published var storedCityWeatherData: [StoredCityWeatherData] = []
-    private let network = Network()
-    
     @Published var isLoading = false
-    @Published var errorMessage: String? = nil
+    @Published var errorMessage: IdentifiableError?
     
-    private let storageKey = "storedCities"
+    private let network = Network()
+    private var modelContext: ModelContext
+    private var searchCancellable: AnyCancellable?
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+        setupSearchPublisher()
+    }
+    
+    private func setupSearchPublisher() {
+        searchCancellable = $searchText
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] searchText in
+                guard !searchText.isEmpty else { return }
+                self?.searchCity()
+            }
+    }
     
     func searchCity() {
         let geoCoder = CLGeocoder()
         
-        geoCoder.geocodeAddressString(searchText) { placemarks, error in
-            if let error = error {
-                return
-            }
-            self.searchResults.removeAll()
+        geoCoder.geocodeAddressString(searchText) { [weak self] placemarks, error in
+            guard let self = self else { return }
             
-            guard let placemarks = placemarks else { return }
-            
-            for placemark in placemarks {
-                let searchResult = SearchedCity(name: placemark.locality ?? "n/a",
-                                                state: placemark.administrativeArea ?? "n/a",
-                                                latitude: nil, longitude: nil)
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.errorMessage = IdentifiableError(message: "Geocoding error: \(error.localizedDescription)")
+                    return
+                }
                 
-                self.searchResults.append(searchResult)
+                self.searchResults.removeAll()
+                
+                guard let placemarks = placemarks else {
+                    self.errorMessage = IdentifiableError(message: "No locations found")
+                    return
+                }
+                
+                for placemark in placemarks {
+                    let searchResult = SearchedCity(name: placemark.locality ?? "n/a",
+                                                    state: placemark.administrativeArea ?? "n/a",
+                                                    latitude: nil, longitude: nil)
+                    
+                    self.searchResults.append(searchResult)
+                }
+                
+                if self.searchResults.isEmpty {
+                    self.errorMessage = IdentifiableError(message: "No valid locations found")
+                }
             }
         }
     }
     
-    func selectedCity(selectedCity: SearchedCity) {
-        getCoordinates(for: selectedCity.name + ", " + selectedCity.state) { [weak self] coordinate in
+    func getCoordinatesAndSaveCity(for selectedCity: SearchedCity) {
+        getCoordinates(for: selectedCity.name + ", " + selectedCity.state) { coordinate in
             guard let coordinate = coordinate else { return }
             
-            let selectedCity = SearchedCity(name: selectedCity.name,
-                                            state: selectedCity.state,
-                                            latitude: coordinate.latitude,
-                                            longitude: coordinate.longitude)
+            let cityToSave = SearchedCity(name: selectedCity.name,
+                                          state: selectedCity.state,
+                                          latitude: coordinate.latitude,
+                                          longitude: coordinate.longitude)
             
-            self?.saveCity(selectedCity)
+            self.saveToSwiftData(cityToSave)
         }
     }
     
     private func getCoordinates(for address: String, 
                                 completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { placemarks, error in
             guard let location = placemarks?.first?.location, error == nil else {
@@ -69,26 +99,52 @@ class PickLocationViewModel: ObservableObject {
         }
     }
     
-    private func saveCity(_ city: SearchedCity) {
-        storedCities.append(city)
-        print("DEBUG: city appended to storedCities")
-        storeToPersistentStorage()
-        
-    }
-    
-    private func storeToPersistentStorage() {
-        
-        if let data = try? JSONEncoder().encode(storedCities) {
-            UserDefaults.standard.set(data, forKey: storageKey)
-            print("DEBUG: city added to persistent data")
+    private func saveToSwiftData(_ city: SearchedCity) {
+        modelContext.insert(city)
+        do {
+            try modelContext.save()
+            print("DEBUG: \(city.name) appended to storedCities")
+            // After saving, reload the weather data for all cities
+            Task {
+                await loadWeatherDataForEachCity()
+            }
+        } catch {
+            print("DEBUG: Error saving city to SwiftData: \(error)")
+            errorMessage = IdentifiableError(message: "Failed to save city: \(error.localizedDescription)")
         }
     }
     
-    func loadStoredCities() {
-        if let data = UserDefaults.standard.data(forKey: storageKey),
-           let savedCities = try? JSONDecoder().decode([SearchedCity].self, from: data) {
-            storedCities = savedCities
+    func loadWeatherDataForEachCity() async {
+        isLoading = true
+        storedCityWeatherData.removeAll()
+        
+        let fetchDescriptor = FetchDescriptor<SearchedCity>(sortBy: [SortDescriptor(\.name)])
+        
+        do {
+            let storedCities = try modelContext.fetch(fetchDescriptor)
+            
+            for city in storedCities {
+                do {
+                    let newCityToFetchWeatherFor = try await network.fetch(lat: city.latitude ?? 0.0,
+                                                                           lon: city.longitude ?? 0.0,
+                                                                           type: StoredCityWeatherData.self)
+                    
+                    let newEntry = StoredCityWeatherData(location: newCityToFetchWeatherFor.location,
+                                                         current: newCityToFetchWeatherFor.current)
+                    
+                    self.storedCityWeatherData.append(newEntry)
+                    
+                } catch {
+                    print("DEBUG: error loading city weather data", error)
+                    errorMessage = IdentifiableError(message: error.localizedDescription)
+                }
+            }
+        } catch {
+            print("DEBUG: error fetching stored cities", error)
+            errorMessage = IdentifiableError(message: "Failed to fetch stored cities: \(error.localizedDescription)")
         }
+        
+        isLoading = false
     }
 }
 

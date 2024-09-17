@@ -6,11 +6,22 @@
 //
 
 import Foundation
+import SwiftData
 
-struct SearchedCity: Identifiable, Codable, Equatable {
-    var id = UUID()
-    var name: String
+/// `Step 4`, conform this to stored model managed by SwiftData
+@Model
+class SearchedCity: Identifiable {
+    /// `@Attributed(.unique)` ensures the `name` property is unique amongst stored elements
+    @Attribute(.unique) var name: String
     var state: String
     var latitude: Double?
     var longitude: Double?
+    
+    /// `Every SwiftData model needs to be init'd`
+    init(name: String, state: String, latitude: Double? = nil, longitude: Double? = nil) {
+        self.name = name
+        self.state = state
+        self.latitude = latitude
+        self.longitude = longitude
+    }
 }

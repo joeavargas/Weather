@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PickLocationView: View {
+    @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewModel: PickLocationViewModel
     
-    @StateObject private var viewModel = PickLocationViewModel()
+    init(modelContext: ModelContext) {
+        _viewModel = StateObject(wrappedValue: PickLocationViewModel(modelContext: modelContext))
+    }
     
-    let columns = [
-        GridItem(.fixed(150)),
+    private let columns = [
+        GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
@@ -37,17 +42,19 @@ struct PickLocationView: View {
                     .padding([.top, .bottom], 50)
                     
                     if viewModel.searchResults.isEmpty {
-                        // Display stored cities when there are no search results
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(viewModel.storedCityWeatherData) { storedCity in
-                                    LocationCardView(storedCityWeatherData: storedCity)
+                        if viewModel.isLoading {
+                            ProgressView()
+                        } else {
+                            ScrollView {
+                                LazyVGrid(columns: columns, spacing: 20) {
+                                    ForEach(viewModel.storedCityWeatherData, id: \.location.city) { storedCity in
+                                        LocationCardView(storedCityWeatherData: storedCity)
+                                    }
                                 }
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
                     } else {
-                        // Display search results
                         List(viewModel.searchResults) { searchResult in
                             HStack {
                                 VStack(alignment: .leading) {
@@ -61,28 +68,28 @@ struct PickLocationView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                print("DEBUG: \(searchResult)")
-                                viewModel.selectedCity(selectedCity: searchResult)
+                                viewModel.getCoordinatesAndSaveCity(for: searchResult)
                                 viewModel.searchResults.removeAll()
                                 viewModel.searchText = ""
                             }
                         }
-                        
                     }
                 }
                 .foregroundStyle(.white)
                 .padding(.horizontal, 22)
             }
-            .onChange(of: viewModel.searchText) {
-                viewModel.searchCity()
-            }
         }
         .onAppear {
-            viewModel.loadStoredCities()
+            Task {
+                await viewModel.loadWeatherDataForEachCity()
+            }
+        }
+        .alert(item: $viewModel.errorMessage) { error in
+            Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
         }
     }
 }
 
 #Preview {
-    PickLocationView()
+    PickLocationView(modelContext: ModelContext(try! ModelContainer(for: SearchedCity.self)))
 }

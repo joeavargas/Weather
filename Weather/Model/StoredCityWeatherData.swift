@@ -7,9 +7,7 @@
 
 import Foundation
 
-struct StoredCityWeatherData: Identifiable, Codable {
-    var id = UUID()
-    
+struct StoredCityWeatherData: Decodable {
     let location: WeatherLocation
     let current: CurrentWeather
 }

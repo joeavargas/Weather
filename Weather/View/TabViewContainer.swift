@@ -7,10 +7,13 @@
 
 import SwiftUI
 import CoreLocation
+import SwiftData
 
 struct TabViewContainer: View {
     @StateObject private var vm = WeatherViewModel()
+    @Environment(\.modelContext) private var modelContext
     let location: CLLocation
+    
     var body: some View {
         TabView {
             if let weatherData = vm.weatherData {
@@ -19,8 +22,7 @@ struct TabViewContainer: View {
                         Label("", systemImage: "house.fill")
                     }
                 
-                
-                PickLocationView()
+                PickLocationView(modelContext: modelContext)
                     .tabItem {
                         Label("", systemImage: "magnifyingglass")
                     }
@@ -29,7 +31,6 @@ struct TabViewContainer: View {
                     .tabItem {
                         Label("", systemImage: "chart.xyaxis.line")
                     }
-                
                 
                 Text("SettingsView")
                     .tabItem {
@@ -50,4 +51,5 @@ struct TabViewContainer: View {
 
 #Preview {
     TabViewContainer(location: CLLocation(latitude: 29.749907, longitude: -95.358421))
+        .modelContainer(for: SearchedCity.self)
 }

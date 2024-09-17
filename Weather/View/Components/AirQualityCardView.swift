@@ -32,7 +32,6 @@ struct AirQualityCardView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout, body: {
     AirQualityCardView(airQuality: CurrentWeatherResponse.currentWeatherSample.airQuality)
-        .previewLayout(.sizeThatFits)
-}
+})

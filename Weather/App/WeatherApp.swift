@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct WeatherApp: App {
@@ -19,5 +20,6 @@ struct WeatherApp: App {
                 TabViewContainer(location: location)
             }
         }
+        .modelContainer(for: SearchedCity.self)
     }
 }
