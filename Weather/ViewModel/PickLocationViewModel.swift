@@ -115,23 +115,20 @@ class PickLocationViewModel: ObservableObject {
     }
     
     func deleteCity(_ city: StoredCityWeatherData) {
-        let cityName = city.location.city
-        let stateName = city.location.stateOrRegion
-        
-        print("Attempting to delete city: \(cityName), \(stateName)")
+        print("Attempting to delete city with ID: \(city.id)")
         
         let predicate = #Predicate<SearchedCity> { searchedCity in
-            searchedCity.name == cityName && searchedCity.state == stateName
+            searchedCity.id == city.id
         }
         
         let fetchDescriptor = FetchDescriptor<SearchedCity>(predicate: predicate)
         
         do {
             let citiesToDelete = try modelContext.fetch(fetchDescriptor)
-            print("Found \(citiesToDelete.count) cities matching the criteria")
+            print("Found \(citiesToDelete.count) cities matching the ID")
             
             guard let cityToDelete = citiesToDelete.first else {
-                print("City not found in SwiftData: \(cityName), \(stateName)")
+                print("City not found in SwiftData with ID: \(city.id)")
                 return
             }
             
@@ -140,7 +137,7 @@ class PickLocationViewModel: ObservableObject {
             try modelContext.save()
             
             // Remove the city from the storedCityWeatherData array
-            storedCityWeatherData.removeAll { $0.location.city == cityName && $0.location.stateOrRegion == stateName }
+            storedCityWeatherData.removeAll { $0.id == city.id }
             print("City deleted successfully")
             
         } catch {
@@ -159,13 +156,13 @@ class PickLocationViewModel: ObservableObject {
             let storedCities = try modelContext.fetch(fetchDescriptor)
             
             for city in storedCities {
-                print("DEBUG: \(city.name), \(city.state)", #function)
                 do {
                     let newCityToFetchWeatherFor = try await network.fetch(lat: city.latitude ?? 0.0,
                                                                            lon: city.longitude ?? 0.0,
                                                                            type: StoredCityWeatherData.self)
                     
-                    let newEntry = StoredCityWeatherData(location: newCityToFetchWeatherFor.location,
+                    let newEntry = StoredCityWeatherData(id: city.id,
+                                                         location: newCityToFetchWeatherFor.location,
                                                          current: newCityToFetchWeatherFor.current)
                     
                     self.storedCityWeatherData.append(newEntry)

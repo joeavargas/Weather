@@ -12,13 +12,15 @@ import SwiftData
 @Model
 class SearchedCity: Identifiable {
     /// `@Attributed(.unique)` ensures the `name` property is unique amongst stored elements
-    @Attribute(.unique) var name: String
+    @Attribute(.unique) var id: UUID
+    var name: String
     var state: String
     var latitude: Double?
     var longitude: Double?
     
     /// `Every SwiftData model needs to be init'd`
-    init(name: String, state: String, latitude: Double? = nil, longitude: Double? = nil) {
+    init(id: UUID = UUID(), name: String, state: String, latitude: Double? = nil, longitude: Double? = nil) {
+        self.id = id
         self.name = name
         self.state = state
         self.latitude = latitude

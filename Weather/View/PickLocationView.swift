@@ -47,7 +47,7 @@ struct PickLocationView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns, spacing: 20) {
-                                    ForEach(viewModel.storedCityWeatherData, id: \.location.city) { storedCity in
+                                    ForEach(viewModel.storedCityWeatherData, id: \.id) { storedCity in
                                         LocationCardView(storedCityWeatherData: storedCity)
                                             .contextMenu {
                                                 Button(role: .destructive) {
