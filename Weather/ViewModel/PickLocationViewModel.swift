@@ -114,6 +114,41 @@ class PickLocationViewModel: ObservableObject {
         }
     }
     
+    func deleteCity(_ city: StoredCityWeatherData) {
+        let cityName = city.location.city
+        let stateName = city.location.stateOrRegion
+        
+        print("Attempting to delete city: \(cityName), \(stateName)")
+        
+        let predicate = #Predicate<SearchedCity> { searchedCity in
+            searchedCity.name == cityName && searchedCity.state == stateName
+        }
+        
+        let fetchDescriptor = FetchDescriptor<SearchedCity>(predicate: predicate)
+        
+        do {
+            let citiesToDelete = try modelContext.fetch(fetchDescriptor)
+            print("Found \(citiesToDelete.count) cities matching the criteria")
+            
+            guard let cityToDelete = citiesToDelete.first else {
+                print("City not found in SwiftData: \(cityName), \(stateName)")
+                return
+            }
+            
+            print("Deleting city: \(cityToDelete.name), \(cityToDelete.state)")
+            modelContext.delete(cityToDelete)
+            try modelContext.save()
+            
+            // Remove the city from the storedCityWeatherData array
+            storedCityWeatherData.removeAll { $0.location.city == cityName && $0.location.stateOrRegion == stateName }
+            print("City deleted successfully")
+            
+        } catch {
+            print("Failed to delete city: \(error)")
+            errorMessage = IdentifiableError(message: "Failed to delete city: \(error.localizedDescription)")
+        }
+    }
+    
     func loadWeatherDataForEachCity() async {
         isLoading = true
         storedCityWeatherData.removeAll()
@@ -124,6 +159,7 @@ class PickLocationViewModel: ObservableObject {
             let storedCities = try modelContext.fetch(fetchDescriptor)
             
             for city in storedCities {
+                print("DEBUG: \(city.name), \(city.state)", #function)
                 do {
                     let newCityToFetchWeatherFor = try await network.fetch(lat: city.latitude ?? 0.0,
                                                                            lon: city.longitude ?? 0.0,
@@ -145,6 +181,18 @@ class PickLocationViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    func printAllCities() {
+        do {
+            let allCities = try modelContext.fetch(FetchDescriptor<SearchedCity>())
+            print("All cities in SwiftData:")
+            for city in allCities {
+                print("- \(city.name), \(city.state)")
+            }
+        } catch {
+            print("Failed to fetch cities: \(error)")
+        }
     }
 }
 

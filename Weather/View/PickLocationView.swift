@@ -49,6 +49,13 @@ struct PickLocationView: View {
                                 LazyVGrid(columns: columns, spacing: 20) {
                                     ForEach(viewModel.storedCityWeatherData, id: \.location.city) { storedCity in
                                         LocationCardView(storedCityWeatherData: storedCity)
+                                            .contextMenu {
+                                                Button(role: .destructive) {
+                                                    viewModel.deleteCity(storedCity)
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                            }
                                     }
                                 }
                                 .padding(.horizontal)
@@ -82,6 +89,7 @@ struct PickLocationView: View {
         .onAppear {
             Task {
                 await viewModel.loadWeatherDataForEachCity()
+                viewModel.printAllCities()
             }
         }
         .alert(item: $viewModel.errorMessage) { error in
