@@ -12,6 +12,7 @@ import SwiftData
 struct TabViewContainer: View {
     @StateObject private var vm = WeatherViewModel()
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) var colorScheme
     let location: CLLocation
     
     var body: some View {
@@ -32,10 +33,13 @@ struct TabViewContainer: View {
                         Label("", systemImage: "chart.xyaxis.line")
                     }
                 
-                Text("SettingsView")
+                SettingsView()
                     .tabItem {
                         Label("", systemImage: "gearshape.fill")
                     }
+                /// Force `SettingsView` to have a dark theme so
+                /// `navigationTitle` can have a foreground color of `.white`
+                    .environment(\.colorScheme, .dark)
             }
         }
         .task {
