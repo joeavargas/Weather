@@ -32,6 +32,12 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onChange(of: isMetric) {
+            print("DEBUG: isMetric: \(isMetric)")
+        }
+        .onAppear {
+            print("DEBUG: isMetric: \(isMetric)")
+        }
         
     }
 }

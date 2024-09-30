@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HourlyViewCard: View {
     let hour: Hour
+    let isMetric: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -23,7 +24,8 @@ struct HourlyViewCard: View {
                     
                     VStack {
                         Text(hour.formattedHour)
-                        Text("\(Int(hour.temperatureF))°")
+                        Text(isMetric ? "\(Int(hour.temperatureC))°C":
+                                "\(Int(hour.temperatureF))°F")
                     }
                 }
                 .padding()
@@ -35,5 +37,5 @@ struct HourlyViewCard: View {
 }
 
 #Preview {
-    HourlyViewCard(hour: CurrentWeatherResponse.forecastSample.forecastDay.first!.hour.first!)
+    HourlyViewCard(hour: CurrentWeatherResponse.forecastSample.forecastDay.first!.hour.first!, isMetric: false)
 }
