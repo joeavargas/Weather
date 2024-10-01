@@ -13,7 +13,7 @@ struct HourlyViewCard: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill( Color.nextHourBlue)
+                .fill(isCurrentHour ? Color.nextHourBlue : Color.navyBlue)
             
             VStack {
                 HStack(spacing: 10) {
@@ -33,6 +33,15 @@ struct HourlyViewCard: View {
             .padding(.horizontal, 6)
         }
         .frame(height: 75)
+    }
+}
+
+extension HourlyViewCard {
+    private var isCurrentHour: Bool {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let hourFromTimestamp = Calendar.current.component(.hour, from: Date(timeIntervalSince1970: TimeInterval(hour.currentTimestamp)))
+        
+        return currentHour == hourFromTimestamp
     }
 }
 

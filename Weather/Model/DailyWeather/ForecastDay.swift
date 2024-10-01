@@ -52,7 +52,7 @@ extension ForecastDay {
             // Get hour from every hour element
             let hourComponent = Calendar.current.component(.hour, from: date)
             // Return true if the hour component is greater than the current hour
-            return hourComponent > currentHour
+            return hourComponent >= currentHour
         }
         
         return filteredHours
