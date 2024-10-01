@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ForecastReportView: View {
     let weatherData: CurrentWeatherResponse
+    @AppStorage("isMetric") private var isMetric: Bool = false
     var body: some View {
         ZStack {
             GradientBackgroundView()
@@ -27,7 +28,7 @@ struct ForecastReportView: View {
                     HStack {
                         if let filteredHours = weatherData.forecast.forecastDay.first?.filteredHours {
                             ForEach(filteredHours, id: \.currentTimestamp) { hour in
-                                HourlyViewCard(hour: hour)
+                                HourlyViewCard(hour: hour, isMetric: isMetric)
                             }
                         }
                     }
@@ -45,7 +46,7 @@ struct ForecastReportView: View {
                 ScrollView {
                     /// `dropFirst(2)` elements which are `yesterday's` and `today's` date
                     ForEach(weatherData.forecast.forecastDay.dropFirst(2), id: \.timestamp) { day in
-                        DailyWeatherCardView(day: day)
+                        DailyWeatherCardView(day: day, isMetric: isMetric)
                     }
                 }
             }

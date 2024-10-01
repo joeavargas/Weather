@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LocationCardView: View {
     let storedCityWeatherData: StoredCityWeatherData
+    let isMetric: Bool
     
     private let imageDimensions = 40.0
     var body: some View {
@@ -21,9 +22,10 @@ struct LocationCardView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 24) {
                         VStack(alignment: .leading) {
-                            Text("\(Int(storedCityWeatherData.current.temperatureF))°")
-                                .font(.title2)
-                                .fontWeight(.bold)
+                            Text(isMetric ? "\(Int(storedCityWeatherData.current.temperatureC))°C":
+                                    "\(Int(storedCityWeatherData.current.temperatureF))°F")
+                            .font(.title2)
+                            .fontWeight(.bold)
                             Text(storedCityWeatherData.current.condition.description)
                                 .foregroundStyle(.secondary)
                         }
@@ -45,5 +47,5 @@ struct LocationCardView: View {
 }
 
 #Preview {
-    LocationCardView(storedCityWeatherData: StoredCityWeatherData(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample))
+    LocationCardView(storedCityWeatherData: StoredCityWeatherData(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample), isMetric: true)
 }

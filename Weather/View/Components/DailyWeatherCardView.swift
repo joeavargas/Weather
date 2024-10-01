@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DailyWeatherCardView: View {
     let day: ForecastDay
+    let isMetric: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -23,7 +24,7 @@ struct DailyWeatherCardView: View {
                     }
                     Spacer()
                     
-                    Text("\(Int(day.day.maxTemperatureF))°")
+                    Text(isMetric ? "\(Int(day.day.maxTemperatureC))°C" :"\(Int(day.day.maxTemperatureF))°F")
                         .font(.system(size: 40))
                     
                     Spacer()
@@ -43,5 +44,5 @@ struct DailyWeatherCardView: View {
 }
 
 #Preview {
-    DailyWeatherCardView(day: CurrentWeatherResponse.forecastSample.forecastDay.first!)
+    DailyWeatherCardView(day: CurrentWeatherResponse.forecastSample.forecastDay.first!, isMetric: true)
 }

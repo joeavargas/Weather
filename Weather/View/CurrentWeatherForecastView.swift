@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentWeatherForecastView: View {
     let weatherData: CurrentWeatherResponse
+    let isMetric: Bool
     
     var body: some View {
         VStack {
@@ -22,12 +23,12 @@ struct CurrentWeatherForecastView: View {
                 
                 VStack {
                     Text("Temp")
-                    Text("\(Int(weatherData.current.temperatureF))°")
+                    Text(isMetric ? "\(Int(weatherData.current.temperatureC))°C" : "\(Int(weatherData.current.temperatureF))°F")
                 }
                 Spacer()
                 VStack {
                     Text("Wind")
-                    Text("\(Int(weatherData.current.windSpeedMph))mph")
+                    Text(isMetric ? "\(Int(weatherData.current.windSpeedKph)) km/h" : "\(Int(weatherData.current.windSpeedMph)) mph")
                 }
                 Spacer()
                 VStack {
@@ -41,5 +42,5 @@ struct CurrentWeatherForecastView: View {
 }
 
 #Preview {
-    CurrentWeatherForecastView(weatherData: CurrentWeatherResponse.init(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample, forecast: CurrentWeatherResponse.forecastSample))
+    CurrentWeatherForecastView(weatherData: CurrentWeatherResponse.init(location: CurrentWeatherResponse.weatherLocationSample, current: CurrentWeatherResponse.currentWeatherSample, forecast: CurrentWeatherResponse.forecastSample), isMetric: true)
 }

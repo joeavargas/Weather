@@ -11,6 +11,7 @@ import SwiftData
 struct PickLocationView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: PickLocationViewModel
+    @AppStorage("isMetric") private var isMetric: Bool = false
     
     init(modelContext: ModelContext) {
         _viewModel = StateObject(wrappedValue: PickLocationViewModel(modelContext: modelContext))
@@ -48,7 +49,7 @@ struct PickLocationView: View {
                             ScrollView {
                                 LazyVGrid(columns: columns, spacing: 20) {
                                     ForEach(viewModel.storedCityWeatherData, id: \.id) { storedCity in
-                                        LocationCardView(storedCityWeatherData: storedCity)
+                                        LocationCardView(storedCityWeatherData: storedCity, isMetric: isMetric)
                                             .contextMenu {
                                                 Button(role: .destructive) {
                                                     viewModel.deleteCity(storedCity)

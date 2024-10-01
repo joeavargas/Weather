@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrentWeatherView: View {
     let weatherData: CurrentWeatherResponse
     @State private var pickerSelection = 0
+    @AppStorage("isMetric") private var isMetric: Bool = false
     var body: some View {
         ZStack {
             
@@ -29,7 +30,7 @@ struct CurrentWeatherView: View {
                 .pickerStyle(.segmented)
                 
                 switch pickerSelection {
-                case 0: CurrentWeatherForecastView(weatherData: weatherData)
+                case 0: CurrentWeatherForecastView(weatherData: weatherData, isMetric: isMetric)
                 default: 
                     ScrollView {
                         CurrentWeatherAirQualityAndUvView(weatherData: weatherData)
@@ -44,7 +45,7 @@ struct CurrentWeatherView: View {
                     }
                     
                     // Hourly Weather View
-                    CurrentWeatherHourlyView(weatherData: weatherData)
+                    CurrentWeatherHourlyView(weatherData: weatherData, isMetric: isMetric)
                 }
                 Spacer()
             }
