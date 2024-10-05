@@ -1,5 +1,13 @@
 # Weather
+
 Weather app built with SwiftUI securely using the weatherAPI data endpoint. 
+
+# Features
+- Fetch weather data from [weatherAPI](https://www.weatherapi.com/) using Concurrency(async/await) paired with [CoreLocation](https://developer.apple.com/documentation/corelocation) framework to access device location coordinates. 
+- Use [GeoCoder](https://developer.apple.com/documentation/corelocation/clgeocoder) to search for cities
+- Use [SwiftData](https://developer.apple.com/documentation/swiftdata) to save searched cities to model context
+  - Parse saved cities from model context and query weather data for each city
+  - Display cities and it's respective weather data in `PickLocationView.swift`
 
 # Get started(important)
 In order to get the app to function properly locally on your end, you must register for and apply your own key to the codebase.
