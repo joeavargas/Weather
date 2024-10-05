@@ -4,6 +4,8 @@
 
 ## User settings
 xcuserdata/
+*/xcshareddata
+Weather/WeatherAPI
 
 ## Obj-C/Swift specific
 *.hmap
