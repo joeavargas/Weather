@@ -23,3 +23,6 @@ Example: if your key is `abcdefg1234567`, the query item should look like `URLQu
 Build and run the app!
 
 If you run into trouble or get stuck, feel free to reach out to me via the email in my [profile](https://github.com/joeavargas). 
+
+#  Issues and Project board
+You can submit issues [here](https://github.com/joeavargas/Weather/issues) and follow the project board [here](https://github.com/users/joeavargas/projects/4).
