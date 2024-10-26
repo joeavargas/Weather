@@ -87,6 +87,11 @@ struct PickLocationView: View {
                 .padding(.horizontal, 22)
             }
         }
+        .onChange(of: viewModel.searchText) {
+            if viewModel.searchText.isEmpty {
+                viewModel.searchResults.removeAll()
+            }
+        }
         .onAppear {
             Task {
                 await viewModel.loadWeatherDataForEachCity()
